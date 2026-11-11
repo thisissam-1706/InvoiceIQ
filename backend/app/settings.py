@@ -20,7 +20,10 @@ FIXTURES_DIR = BACKEND_DIR / "tests" / "fixtures"
 FRONTEND_DIST = ROOT_DIR / "frontend" / "dist"
 CONFIG_PATH = ROOT_DIR / "config.yaml"
 
-DEFAULT_MODELS = {"gemini": "gemini-3.8-flash", "openai": "gpt-4o-mini", "offline": "heuristic-v1"}
+DEFAULT_MODELS = {"groq": "qwen/qwen3.6-27b", "gemini": "gemini-3.8-flash", "openai": "gpt-4o-mini", "offline": "heuristic-v1"}
+# A model name that clearly belongs to another provider is ignored (e.g. LLM_MODEL=gemini-... with LLM_PROVIDER=groq).
+_MODEL_PREFIXES = {"gemini": ("gemini",), "openai": ("gpt", "o1", "o3", "o4", "chatgpt")}
+_NOT_GROQ = ("gemini", "grok", "gpt-", "o1", "o3", "o4", "chatgpt")
 
 load_dotenv(ROOT_DIR / ".env")
 
@@ -107,16 +110,19 @@ class EnvSettings:
     llm_model: str
     gemini_api_key: str
     openai_api_key: str
+    groq_api_key: str
     db_path: Path
 
 
 def load_env() -> EnvSettings:
-    provider = os.getenv("LLM_PROVIDER", "offline").strip().lower() or "offline"
+    provider = os.getenv("LLM_PROVIDER", "groq").strip().lower() or "groq"
     if provider not in DEFAULT_MODELS:
         provider = "offline"
     model = os.getenv("LLM_MODEL", "").strip()
-    if provider == "openai" and (not model or model.startswith("gemini")):
-        model = DEFAULT_MODELS["openai"]
+    if provider in _MODEL_PREFIXES and model and not model.lower().startswith(_MODEL_PREFIXES[provider]):
+        model = ""
+    if provider == "groq" and model.lower().startswith(_NOT_GROQ):
+        model = ""
     if not model or provider == "offline":
         model = DEFAULT_MODELS[provider]
     return EnvSettings(
@@ -124,6 +130,7 @@ def load_env() -> EnvSettings:
         llm_model=model,
         gemini_api_key=os.getenv("GEMINI_API_KEY", "").strip(),
         openai_api_key=os.getenv("OPENAI_API_KEY", "").strip(),
+        groq_api_key=os.getenv("GROQ_API_KEY", "").strip(),
         db_path=Path(os.getenv("INVOICEIQ_DB", str(DATA_DIR / "invoiceiq.db"))),
     )
 

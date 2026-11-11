@@ -24,9 +24,10 @@ Everything runs locally as one process on one port. The only network calls are t
 Edit `.env` (created from `.env.example` by `setup.sh`):
 
 ```
-LLM_PROVIDER=gemini        # gemini | openai | offline
-LLM_MODEL=gemini-3.8-flash
-GEMINI_API_KEY=your-key-here
+LLM_PROVIDER=groq         # groq | gemini | openai | offline
+LLM_MODEL=qwen/qwen3.6-27b
+GROQ_API_KEY=your-key-here
+GEMINI_API_KEY=
 OPENAI_API_KEY=
 ```
 
@@ -44,7 +45,7 @@ Every check reports a code (for example `VENDOR_NOT_FOUND`). The UI shows a plai
 source .venv/bin/activate
 pytest                                               # unit + end-to-end (offline provider)
 python backend/scripts/run_batch.py --provider offline   # all 13 samples vs expected decisions
-python backend/scripts/run_batch.py --provider gemini    # same with the real LLM (needs a key)
+python backend/scripts/run_batch.py --provider groq      # same with the real LLM (needs a key)
 ```
 
 `run_batch.py` **resets runtime data** (runs, PO consumption, fingerprints, audit), processes the samples in filename order and exits non-zero on any mismatch. The expected outcomes live in one place, `EXPECTED` in `backend/scripts/generate_samples.py`.
@@ -59,7 +60,7 @@ flowchart LR
     end
     Q[(Run queue)] --> W[Single worker thread]
     W --> P[Pipeline: 11 stages]
-    P -->|extract, explain| L{{LLM client<br/>gemini / openai / offline}}
+    P -->|extract, explain| L{{LLM client<br/>groq / gemini / openai / offline}}
     L <--> C[(Response cache)]
     P <--> DB[(SQLite: vendors, POs,<br/>runs, steps, fingerprints,<br/>PO consumption, audit)]
     P -->|stage events| E[Event bus]
@@ -73,7 +74,7 @@ flowchart LR
 | API | FastAPI + Uvicorn, SSE via `StreamingResponse` |
 | Storage | SQLite via SQLModel. Money is stored as decimal strings |
 | PDF | `pdfplumber` for text and tables, PyMuPDF for rendering scans to PNG |
-| LLM | `google-genai` (Gemini, default), `openai`, or the offline heuristic |
+| LLM | Groq via the `openai` SDK (default, free tier), `google-genai` (Gemini), `openai`, or the offline heuristic |
 | Matching | `rapidfuzz` for vendor names and line descriptions, `python-dateutil` for dates |
 | UI | Vite + React 18 + TypeScript + Tailwind + `recharts`, served as static files by FastAPI |
 

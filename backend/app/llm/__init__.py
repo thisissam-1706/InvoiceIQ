@@ -16,6 +16,10 @@ def build_client() -> ResolvedClient:
     """Build the configured provider; a missing key degrades to offline with a visible note."""
     env = load_env()
     try:
+        if env.llm_provider == "groq":
+            from .groq import GroqClient
+
+            return ResolvedClient(GroqClient(env.groq_api_key, env.llm_model))
         if env.llm_provider == "gemini":
             from .gemini import GeminiClient
 

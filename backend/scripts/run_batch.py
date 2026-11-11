@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--provider", choices=["offline", "gemini", "openai"], help="override LLM_PROVIDER for this batch")
+    parser.add_argument("--provider", choices=["offline", "groq", "gemini", "openai"], help="override LLM_PROVIDER for this batch")
     args = parser.parse_args()
     if args.provider:
         os.environ["LLM_PROVIDER"] = args.provider
