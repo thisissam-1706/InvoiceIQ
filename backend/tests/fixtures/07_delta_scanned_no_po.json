@@ -1,0 +1,24 @@
+{
+  "vendor_name": {"value": "Delta Industrial Parts Co.", "confidence": 0.95, "source_text": "Delta Industrial Parts Co."},
+  "vendor_tax_id": {"value": "77-5544332", "confidence": 0.9, "source_text": "EIN 77-5544332"},
+  "vendor_address": {"value": "77 Foundry Lane, Pittsburgh, PA 15222", "confidence": 0.88, "source_text": "77 Foundry Lane Pittsburgh, PA 15222"},
+  "invoice_number": {"value": "DLT-INV-3307", "confidence": 0.93, "source_text": "Invoice No: DLT-INV-3307"},
+  "invoice_date": {"value": "Oct 1, 2026", "confidence": 0.92, "source_text": "Date: Oct 1, 2026"},
+  "due_date": {"value": "Nov 30, 2026", "confidence": 0.86, "source_text": "Due Date: Nov 30, 2026"},
+  "po_reference": {"value": null, "confidence": 0.0, "source_text": null},
+  "reference_notes": {"value": "bearing order Sept", "confidence": 0.9, "source_text": "Ref: bearing order Sept"},
+  "currency": {"value": "USD", "confidence": 0.9, "source_text": "Total USD"},
+  "subtotal": {"value": 8940.00, "confidence": 0.9, "source_text": "Subtotal 8,940.00"},
+  "tax_amount": {"value": 0.00, "confidence": 0.88, "source_text": "Sales Tax (0%) 0.00"},
+  "tax_rate": {"value": 0, "confidence": 0.85, "source_text": "Sales Tax (0%)"},
+  "tax_included_in_prices": {"value": false, "confidence": 0.7, "source_text": null},
+  "total": {"value": 8940.00, "confidence": 0.93, "source_text": "Total USD 8,940.00"},
+  "bank_account_last4": {"value": "6612", "confidence": 0.82, "source_text": "Account No. ****6612"},
+  "bank_routing": {"value": "011000138", "confidence": 0.8, "source_text": "Routing No. 011000138"},
+  "remit_notes": {"value": null, "confidence": 0.0, "source_text": null},
+  "line_items": [
+    {"description": "Ball bearing 6204-2RS", "sku": "DLT-BRG-6204", "quantity": 400, "unit_price": 4.34, "amount": 1736.00},
+    {"description": "Hex bolt M10x40, zinc", "sku": "DLT-BLT-M10", "quantity": 2000, "unit_price": 0.62, "amount": 1240.00},
+    {"description": "NBR gasket 50mm", "sku": "DLT-GSK-NBR", "quantity": 300, "unit_price": 19.88, "amount": 5964.00}
+  ]
+}

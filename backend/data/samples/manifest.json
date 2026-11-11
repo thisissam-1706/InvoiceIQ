@@ -1,0 +1,142 @@
+[
+  {
+    "file": "01_acme_clean.pdf",
+    "scenario": "Happy path",
+    "description": "Clean digital invoice that matches its PO line for line.",
+    "expected_decision": "APPROVE",
+    "expected_codes": [],
+    "headline": false,
+    "scanned": false
+  },
+  {
+    "file": "02_nimbus_tax_separate.pdf",
+    "scenario": "Within tolerance",
+    "description": "Compute billed 0.5% above PO price; 8% tax shown separately.",
+    "expected_decision": "APPROVE",
+    "expected_codes": [
+      "PRICE_VARIANCE_WITHIN_TOL"
+    ],
+    "headline": false,
+    "scanned": false
+  },
+  {
+    "file": "03_brightline_part1.pdf",
+    "scenario": "Split PO, part 1",
+    "description": "First partial bill against a $12,000 blanket freight PO.",
+    "expected_decision": "APPROVE",
+    "expected_codes": [],
+    "headline": false,
+    "scanned": false
+  },
+  {
+    "file": "04_brightline_part2.pdf",
+    "scenario": "Split PO, part 2",
+    "description": "Second partial bill; cumulative $11,500 of $12,000.",
+    "expected_decision": "APPROVE",
+    "expected_codes": [
+      "PO_PARTIAL_CONSUMPTION"
+    ],
+    "headline": false,
+    "scanned": false
+  },
+  {
+    "file": "05_brightline_part3_overrun.pdf",
+    "scenario": "Edge case: cumulative overbilling",
+    "description": "Third partial bill pushes the PO to $12,700 of $12,000.",
+    "expected_decision": "HOLD",
+    "expected_codes": [
+      "PO_BUDGET_EXCEEDED"
+    ],
+    "headline": true,
+    "scanned": false
+  },
+  {
+    "file": "06_acme_duplicate_reformatted.pdf",
+    "scenario": "Edge case: disguised duplicate",
+    "description": "Invoice 01 resent in a new layout as 'INV 1001' with a different date format.",
+    "expected_decision": "REJECT",
+    "expected_codes": [
+      "DUPLICATE_INVOICE"
+    ],
+    "headline": true,
+    "scanned": false
+  },
+  {
+    "file": "07_delta_scanned_no_po.pdf",
+    "scenario": "Edge case: scanned + implied PO",
+    "description": "Image-only scan with no PO number, only 'Ref: bearing order Sept'.",
+    "expected_decision": "HOLD",
+    "expected_codes": [
+      "PO_INFERRED"
+    ],
+    "headline": true,
+    "scanned": true
+  },
+  {
+    "file": "08_delta_scanned_missing_fields.pdf",
+    "scenario": "Missing critical data",
+    "description": "Scanned invoice with no invoice number and the totals area blanked out.",
+    "expected_decision": "HOLD",
+    "expected_codes": [
+      "MISSING_INVOICE_NUMBER",
+      "MISSING_TOTAL"
+    ],
+    "headline": false,
+    "scanned": true
+  },
+  {
+    "file": "09_greenleaf_bank_changed.pdf",
+    "scenario": "Edge case: bank detail fraud signal",
+    "description": "Amounts match the PO exactly, but remit-to bank changed to an account ending 8834.",
+    "expected_decision": "HOLD",
+    "expected_codes": [
+      "BANK_DETAILS_MISMATCH"
+    ],
+    "headline": true,
+    "scanned": false
+  },
+  {
+    "file": "10_unknown_vendor.pdf",
+    "scenario": "Vendor not in master",
+    "description": "Print shop that has never been onboarded; no PO.",
+    "expected_decision": "HOLD",
+    "expected_codes": [
+      "VENDOR_NOT_FOUND"
+    ],
+    "headline": false,
+    "scanned": false
+  },
+  {
+    "file": "11_delta_price_overcharge.pdf",
+    "scenario": "Price variance beyond tolerance",
+    "description": "Gaskets billed at $21.10 against a PO price of $19.88 (+6.1%).",
+    "expected_decision": "HOLD",
+    "expected_codes": [
+      "PRICE_VARIANCE_EXCEEDS_TOL"
+    ],
+    "headline": false,
+    "scanned": false
+  },
+  {
+    "file": "12_acme_math_error.pdf",
+    "scenario": "Arithmetic inconsistency",
+    "description": "Subtotal printed as $4,520.00 but the lines add up to $4,250.00.",
+    "expected_decision": "HOLD",
+    "expected_codes": [
+      "ARITHMETIC_MISMATCH"
+    ],
+    "headline": false,
+    "scanned": false
+  },
+  {
+    "file": "13_orion_inactive_vendor.pdf",
+    "scenario": "Inactive vendor",
+    "description": "Vendor is marked inactive in the master; prices include 5% tax.",
+    "expected_decision": "REJECT",
+    "expected_codes": [
+      "VENDOR_INACTIVE"
+    ],
+    "headline": false,
+    "scanned": false
+  }
+]

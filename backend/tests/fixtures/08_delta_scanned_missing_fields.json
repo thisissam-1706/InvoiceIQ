@@ -1,0 +1,24 @@
+{
+  "vendor_name": {"value": "Delta Industrial Parts Co.", "confidence": 0.94, "source_text": "Delta Industrial Parts Co."},
+  "vendor_tax_id": {"value": "77-5544332", "confidence": 0.88, "source_text": "EIN 77-5544332"},
+  "vendor_address": {"value": "77 Foundry Lane, Pittsburgh, PA 15222", "confidence": 0.85, "source_text": "77 Foundry Lane Pittsburgh, PA 15222"},
+  "invoice_number": {"value": null, "confidence": 0.0, "source_text": "Invoice No:"},
+  "invoice_date": {"value": "Oct 5, 2026", "confidence": 0.9, "source_text": "Date: Oct 5, 2026"},
+  "due_date": {"value": "Dec 4, 2026", "confidence": 0.84, "source_text": "Due Date: Dec 4, 2026"},
+  "po_reference": {"value": "PO-2026-0104", "confidence": 0.92, "source_text": "PO: PO-2026-0104"},
+  "reference_notes": {"value": null, "confidence": 0.0, "source_text": null},
+  "currency": {"value": "USD", "confidence": 0.75, "source_text": "Total USD"},
+  "subtotal": {"value": null, "confidence": 0.0, "source_text": "Subtotal [obscured]"},
+  "tax_amount": {"value": null, "confidence": 0.0, "source_text": "Sales Tax (0%) [obscured]"},
+  "tax_rate": {"value": 0, "confidence": 0.7, "source_text": "Sales Tax (0%)"},
+  "tax_included_in_prices": {"value": false, "confidence": 0.6, "source_text": null},
+  "total": {"value": null, "confidence": 0.0, "source_text": "Total USD [obscured]"},
+  "bank_account_last4": {"value": "6612", "confidence": 0.8, "source_text": "Account No. ****6612"},
+  "bank_routing": {"value": "011000138", "confidence": 0.78, "source_text": "Routing No. 011000138"},
+  "remit_notes": {"value": null, "confidence": 0.0, "source_text": null},
+  "line_items": [
+    {"description": "Ball bearing 6204-2RS", "sku": "DLT-BRG-6204", "quantity": 400, "unit_price": 4.34, "amount": 1736.00},
+    {"description": "Hex bolt M10x40, zinc", "sku": "DLT-BLT-M10", "quantity": 2000, "unit_price": 0.62, "amount": 1240.00},
+    {"description": "NBR gasket 50mm", "sku": "DLT-GSK-NBR", "quantity": 300, "unit_price": 19.88, "amount": 5964.00}
+  ]
+}

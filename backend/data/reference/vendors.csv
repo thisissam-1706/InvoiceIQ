@@ -1,0 +1,7 @@
+vendor_id,name,aliases,tax_id,bank_account_last4,bank_ifsc_or_routing,country,currency,status,payment_terms_days
+V001,Acme Office Supplies Inc.,Acme Office Supplies|ACME Supplies,12-3456789,4421,021000021,US,USD,active,30
+V002,Brightline Logistics LLC,Brightline Logistics|Brightline,98-7654321,7710,026009593,US,USD,active,45
+V003,Nimbus Cloud Services Ltd.,Nimbus Cloud|Nimbus,45-1122334,3098,121000248,US,USD,active,30
+V004,Delta Industrial Parts Co.,Delta Industrial|Delta Parts,77-5544332,6612,011000138,US,USD,active,60
+V005,Greenleaf Catering Co.,Greenleaf Catering|Greenleaf,31-9988776,2250,322271627,US,USD,active,15
+V006,Orion Security Systems,Orion Security,66-4433221,9001,111000025,US,USD,inactive,30

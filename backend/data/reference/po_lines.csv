@@ -1,0 +1,14 @@
+po_number,line_no,sku,description,quantity,unit_price,uom
+PO-2026-0101,1,ACM-PPR-A4,"A4 copy paper, 80gsm, box of 5 reams",50,42.00,box
+PO-2026-0101,2,ACM-TNR-HP26,HP 26A toner cartridge,10,115.00,ea
+PO-2026-0101,3,ACM-CHR-ERG,Ergonomic mesh office chair,2,500.00,ea
+PO-2026-0102,1,BRL-FRT-LTL,"LTL freight services, Q4 lanes",1,12000.00,lot
+PO-2026-0103,1,NMB-CMP-STD,"Cloud compute, standard tier, monthly",3,1000.00,month
+PO-2026-0103,2,NMB-SUP-PRM,"Premium support, monthly",3,200.00,month
+PO-2026-0104,1,DLT-BRG-6204,Ball bearing 6204-2RS,400,4.34,ea
+PO-2026-0104,2,DLT-BLT-M10,"Hex bolt M10x40, zinc",2000,0.62,ea
+PO-2026-0104,3,DLT-GSK-NBR,NBR gasket 50mm,300,19.88,ea
+PO-2026-0105,1,GLF-LUN-BOX,"Boxed lunch, team offsite",50,25.00,ea
+PO-2026-0105,2,GLF-BEV-PKG,Beverage package,1,600.00,lot
+PO-2026-0106,1,DLT-BRG-6205,Ball bearing 6205-2RS,500,4.80,ea
+PO-2026-0107,1,ORN-CAM-4K,4K security camera install,10,500.00,ea
