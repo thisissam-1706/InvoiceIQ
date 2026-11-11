@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from ..settings import load_env
-from .base import LLMClient, LLMError, LLMUnavailable
+from .base import LLMClient, LLMError, LLMTransientError, LLMUnavailable
 from .offline import OfflineClient
 
 
@@ -29,4 +29,4 @@ def build_client() -> ResolvedClient:
     return ResolvedClient(OfflineClient())
 
 
-__all__ = ["LLMClient", "LLMError", "LLMUnavailable", "OfflineClient", "ResolvedClient", "build_client"]
+__all__ = ["LLMClient", "LLMError", "LLMTransientError", "LLMUnavailable", "OfflineClient", "ResolvedClient", "build_client"]

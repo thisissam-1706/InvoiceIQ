@@ -10,6 +10,12 @@ This file is generated from the `ctx.add(...)` / `ctx.passed(...)` calls and fro
 otherwise **APPROVE**. `warning` and `info` findings are shown but do not change the decision by themselves
 (an admin can still list any code under *Never auto-approve* in Settings to force HOLD). `pass` means the check succeeded.
 
+## llm_extract
+
+| Code | Display name | What it means | Severity | Pipeline stage | Effect on decision (APPROVE/HOLD/REJECT) |
+|---|---|---|---|---|---|
+| `LLM_FALLBACK_OFFLINE` | Read by offline extractor | The AI model was overloaded, so a basic text extractor read this invoice. It is always held for a person to check against the PDF. | review | llm_extract | HOLD |
+
 ## validate
 
 | Code | Display name | What it means | Severity | Pipeline stage | Effect on decision (APPROVE/HOLD/REJECT) |

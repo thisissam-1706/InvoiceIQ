@@ -221,6 +221,11 @@ export default function RunDetail() {
         </div>
       </header>
       {rerunError && <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 px-4 py-2 text-sm text-rose-700">{rerunError}</div>}
+      {detail.extraction?.meta.fallback_from && (
+        <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800">
+          Offline fallback: {detail.extraction.meta.fallback_from} was unavailable ({detail.extraction.meta.fallback_reason}), so the basic offline extractor read this invoice. It is held for review: check the fields against the PDF.
+        </div>
+      )}
       {detail.provider_note && (
         <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800">{detail.provider_note}</div>
       )}

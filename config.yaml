@@ -9,6 +9,7 @@ policy:
   auto_approve_max_amount: 50000.0
   never_auto_approve_on:
   - BANK_DETAILS_MISMATCH
+  - LLM_FALLBACK_OFFLINE
   - PO_INFERRED
   - VENDOR_FUZZY_MATCH
 demo:

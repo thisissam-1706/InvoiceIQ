@@ -4,7 +4,7 @@ from typing import Optional
 
 from pydantic import ValidationError
 
-from ..llm import LLMError
+from ..llm import LLMError, LLMTransientError, OfflineClient
 from ..llm.cache import ResponseCache, cache_key
 from ..schemas import InvoiceExtraction
 from . import RunContext, StageError, StageResult
@@ -59,6 +59,8 @@ def _call_with_retry(ctx: RunContext, text: Optional[str], images: Optional[list
                 + last_error
                 + "\nReturn corrected JSON that matches the shape exactly."
             )
+        except LLMTransientError:
+            raise
         except LLMError as exc:
             raise StageError(str(exc)) from exc
     raise StageError(f"Extraction could not produce valid structured data ({last_error.splitlines()[0] if last_error else 'unknown error'})")
@@ -94,10 +96,27 @@ def run(ctx: RunContext) -> StageResult:
     raw = cache.get(key) if use_cache else None
     cached = raw is not None
     attempts = 0
+    fallback: Optional[dict] = None
     if raw is None:
-        raw, attempts = _call_with_retry(ctx, text, images)
-        if use_cache:
-            cache.put(key, raw)
+        try:
+            raw, attempts = _call_with_retry(ctx, text, images)
+            if use_cache:
+                cache.put(key, raw)
+        except LLMTransientError as exc:
+            code = exc.status_code or 503
+            if scanned:
+                raise StageError(f"The AI model is overloaded right now ({code}). Use Re-run in a minute.") from exc
+            fallback = {"from": f"{client.provider}/{client.model}", "reason": exc.short[:80], "code": code}
+            # Heuristic result: never cached (not under the Gemini key, nor any other).
+            client = OfflineClient()
+            ctx.llm = client  # explain stage then uses its template instead of retrying the busy model
+            raw, attempts = _call_with_retry(ctx, text, images)
+            ctx.add(
+                "LLM_FALLBACK_OFFLINE", "review",
+                f"The AI model was unavailable ({fallback['reason']}), so fields were read by the basic offline extractor. "
+                "Check them against the PDF.",
+                data={"fallback_from": fallback["from"], "fallback_reason": fallback["reason"]},
+            )
 
     extraction = InvoiceExtraction.model_validate(raw)
     adjustments = _adjust_confidence(ctx, extraction)
@@ -108,6 +127,7 @@ def run(ctx: RunContext) -> StageResult:
     confidences = [getattr(extraction, n).confidence for n in present]
     avg = sum(confidences) / len(confidences) if confidences else 0.0
     ctx.extraction_meta = {
+        **({"fallback_from": fallback["from"], "fallback_reason": fallback["reason"]} if fallback else {}),
         "provider": client.provider,
         "model": client.model,
         "mode": "vision" if scanned else "text",
@@ -130,6 +150,11 @@ def run(ctx: RunContext) -> StageResult:
         f"Extracted {len(present)} fields, {len(extraction.line_items)} line items, avg confidence {avg:.2f} via {via}"
         + (" (cached)" if cached else "")
     )
+    if fallback:
+        summary = (
+            f"AI unavailable ({fallback['code']}), used offline extractor. "
+            f"Extracted {len(present)} fields, {len(extraction.line_items)} line items"
+        )
     if scanned and not present:
         summary = f"No fields could be read from the scanned pages via {via}"
     return StageResult(summary, {**ctx.extraction_meta, "extraction": json.loads(extraction.model_dump_json())})

@@ -59,12 +59,14 @@ CODE_LABELS = {
     "PRICE_VARIANCE_EXCEEDS_TOL": "price above tolerance",
     "TOTAL_VARIANCE_EXCEEDS_TOL": "total outside tolerance",
     "AMOUNT_ABOVE_AUTO_LIMIT": "above auto-approval limit",
+    "LLM_FALLBACK_OFFLINE": "read by the offline extractor (AI unavailable)",
 }
 
 
 # Display-only names for the UI and CODES.md. CODE_LABELS above is spliced into sentences by
 # explain.py and must stay as lowercase fragments; use DISPLAY_LABELS for anything shown as a label.
 DISPLAY_LABELS: dict[str, dict[str, str]] = {
+    "LLM_FALLBACK_OFFLINE": {"title": "Read by offline extractor", "description": "The AI model was overloaded, so a basic text extractor read this invoice. It is always held for a person to check against the PDF."},
     "MISSING_INVOICE_NUMBER": {"title": "Invoice number not found", "description": "No invoice number could be read from the document."},
     "INVOICE_NUMBER_PRESENT": {"title": "Invoice number found", "description": "An invoice number was read from the document."},
     "MISSING_INVOICE_DATE": {"title": "Invoice date not found", "description": "No readable invoice date was found on the document."},

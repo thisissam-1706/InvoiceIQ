@@ -39,7 +39,7 @@ class ExtractionConfig(BaseModel):
 class Policy(BaseModel):
     auto_approve_max_amount: Decimal = Field(Decimal("50000"), ge=0)
     never_auto_approve_on: list[str] = Field(
-        default_factory=lambda: ["BANK_DETAILS_MISMATCH", "PO_INFERRED", "VENDOR_FUZZY_MATCH"]
+        default_factory=lambda: ["BANK_DETAILS_MISMATCH", "LLM_FALLBACK_OFFLINE", "PO_INFERRED", "VENDOR_FUZZY_MATCH"]
     )
 
     @field_validator("never_auto_approve_on")

@@ -120,6 +120,14 @@ function StageRow({ stage, view, index, isLast }: { stage: Stage; view: StageVie
             <div className="flex items-center gap-2">
               <span className="text-[11px] tabular-nums text-slate-400">{String(index + 1).padStart(2, "0")}</span>
               <span className={`text-sm font-medium ${state === "pending" ? "text-slate-400" : "text-slate-900"}`}>{STAGE_LABELS[stage]}</span>
+              {stage === "llm_extract" && typeof view?.detail?.fallback_from === "string" && (
+                <span
+                  className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-medium text-amber-800 ring-1 ring-inset ring-amber-600/20"
+                  title={`Fell back from ${view.detail.fallback_from}: ${String(view.detail.fallback_reason ?? "unavailable")}. Held for review.`}
+                >
+                  Offline fallback
+                </span>
+              )}
               {hasDetail && <ChevronIcon className={`h-3.5 w-3.5 text-slate-400 transition-transform ${open ? "rotate-90" : ""}`} />}
             </div>
             <div className={`mt-0.5 text-[13px] ${state === "failed" ? "text-rose-700" : "text-slate-600"}`}>

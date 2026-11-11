@@ -115,6 +115,8 @@ export interface ExtractionMeta {
   avg_confidence: number;
   confidence_adjustments: { field: string; from: number; to: number }[];
   confidence_cap: number | null;
+  fallback_from?: string;
+  fallback_reason?: string;
 }
 
 export interface Extraction {
