@@ -25,7 +25,7 @@ Edit `.env` (created from `.env.example` by `setup.sh`):
 
 ```
 LLM_PROVIDER=gemini        # gemini | openai | offline
-LLM_MODEL=gemini-2.5-flash
+LLM_MODEL=gemini-3.8-flash
 GEMINI_API_KEY=your-key-here
 OPENAI_API_KEY=
 ```

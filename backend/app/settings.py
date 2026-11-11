@@ -20,7 +20,7 @@ FIXTURES_DIR = BACKEND_DIR / "tests" / "fixtures"
 FRONTEND_DIST = ROOT_DIR / "frontend" / "dist"
 CONFIG_PATH = ROOT_DIR / "config.yaml"
 
-DEFAULT_MODELS = {"gemini": "gemini-2.5-flash", "openai": "gpt-4o-mini", "offline": "heuristic-v1"}
+DEFAULT_MODELS = {"gemini": "gemini-3.8-flash", "openai": "gpt-4o-mini", "offline": "heuristic-v1"}
 
 load_dotenv(ROOT_DIR / ".env")
 
